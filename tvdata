@@ -1,0 +1,2 @@
+CREATE TABLE shows (showid INT PRIMARY KEY, name TEXT, totalseasons INT, started TEXT, classification TEXT , network TEXT, airtime TEXT, airday TEXT, image TEXT, runtime TEXT);
+;
