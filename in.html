@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head><title>ShoCal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="jumbotron" style="height:100%;">
+      <div class="container" style="height:100%;">
+        <center><h1>ShoCal</h1></center>
+        <center><h3>The Revolutionary Way to Watch TV</h5></center>
+        
+        <div class="col-lg-4 col-lg-offset-1">
+        <center><h3>Login</h5></center>
+        <form class="bs-example" action="login.php" method="get">
+          <div class="form-group">
+            <label class="control-label" for="userName">User Name</label>
+            <input class="form-control" id="userName" type="text" name="name" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="pass">Password</label>
+            <input class="form-control" id="pass" type="text" name="password" autocomplete="off">
+          </div>
+            <input type="submit" value = "Login" class="btn btn-danger">
+        </form>
+        </div>
+        
+        <div class="col-lg-4 col-lg-offset-1">
+        <center><h3>Create An Account</h5></center>
+        <form class="bs-example" action="createUser.php" method="get">
+          <div class="form-group">
+            <label class="control-label" for="userName">User Name</label>
+            <input class="form-control" id="userName" type="text" name="name" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="pass">Password</label>
+            <input class="form-control" id="pass" type="text" name="password" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="email2">Email</label>
+            <input class="form-control" id="email2" type="text" name="email" autocomplete="off">
+          </div>
+          <input type="submit" value = "Create Account" class="btn btn-danger">
+        </form>
+        </div>
+        
+      </div>
+    </div>
+
+</body>
+</html>

@@ -1,95 +1,3 @@
-<?php
-function findShows(){
-$con = mysql_connect("engr-cpanel-mysql.engr.illinois.edu","aerra2_shocal","password");
- 
-if (!$con)
-{
-  die('Could not connect: ' . mysql_error());
-}
- 
-mysql_select_db("aerra2_ShoCalUserAccounts", $con);
-
-$name = $_GET['name'];
-$network = $_GET['network'];
-$airday = $_GET['airday'];
-$airtime = $_GET['airtime'];
-$class = $_GET['class'];
-
-$query = "SELECT * FROM `shows`";
-
-$exist = 0;
-
-if ($name != "" )
-{
-	$query .= " WHERE `name` like '%$name%'";
-	$exist = 1;
-}
-if ($network != "" )
-{
-	if ($exist == 1)
-		$query .= " AND";
-	else
-		$query .= " WHERE";
-	$query .= " `network` like '%$network%'";
-	$exist = 1;
-}
-if ($airday != "" )
-{
-	if ($exist == 1)
-		$query .= " AND";
-	else
-		$query .= " WHERE";
-	$query .= " `airday` like '%$airday%'";
-	$exist = 1;
-}
-if ($airtime != "" )
-{
-	if ($exist == 1)
-		$query .= " AND";
-	else
-		$query .= " WHERE";
-	$query .= " `airtime` like '%$airtime%'";
-	$exist = 1;
-}
-if ($class != "" )
-{
-	if ($exist == 1)
-		$query .= " AND";
-	else
-		$query .= " WHERE";
-	$query .= " `classification` like '%$class%'";
-}
-
-$shows = mysql_query($query);
-
-if (!$shows) { // add this check.
-    die('Invalid query: ' . mysql_error());
-}
-
-return $shows;
-
-while($row = mysql_fetch_array($shows, MYSQL_ASSOC))
-{
-  $name = $row['name'];
-  $network = $row['network'];
-  $showid = $row['showid'];
-  $started = $row['started'];
-  $totalseasons = $row['totalseasons'];
-  $image = $row['image'];
-  $airday = $row['airday'];
-  
-  #NEED TO PRINT
-  
-    
-  #$img = imagecreatefrompng('$image');
-  #header('Content-type: image/jpg');
-  #readfile($image);
-  #echo '<img src="$img" title="Error" alt="Error" />';
-}
-
-mysql_close($con);
-}
-?>
 <!DOCTYPE html>
 <html>
 <head><title>ShoCal</title>
@@ -134,6 +42,16 @@ mysql_close($con);
               </ul>
             </li>
           </ul>
+         <span id="signinButton" style = "float: right" >
+	  <span
+	    class="g-signin"
+	    data-callback="signinCallback"
+	    data-clientid="399861251234-sj49hnvmnbr4pkuui4q7avrua5l6lt59.apps.googleusercontent.com"
+	    data-cookiepolicy="single_host_origin"
+	    data-requestvisibleactions="http://schemas.google.com/AddActivity"
+	    data-scope="https://www.googleapis.com/auth/plus.login">
+	  </span>
+	</span>
         </div><!--/.navbar-collapse -->
       </div>
     </div>
@@ -147,40 +65,31 @@ mysql_close($con);
         <h3>Welcome, <?php echo $_COOKIE["username"]; ?></h3>
         <h3></h3>
         
-        <?php
-	        $shows = findShows();
-	        while($row = mysql_fetch_array($shows, MYSQL_ASSOC))
-		{
-		  $name = $row['name'];
-		  $network = $row['network'];
-		  $showid = $row['showid'];
-		  $started = $row['started'];
-		  $totalseasons = $row['totalseasons'];
-		  $image = $row['image'];
-		  $airday = $row['airday'];
-		  $airtime = $row['airtime'];
-		  
-		  #NEED TO PRINT
-		  print "<h5>
-			Name: $name <br/>
-			Network: $network <br/>
-			Airday: $airday <br/>
-			Airtime: $airtime <br/>		 
-		  </h5>
-		  <form action=\"addToCal.php\">
-		  <input type =\"hidden\" name = \"id\" value = \"$showid\">
-    		  <input type=\"submit\" value=\"Add To Calander\" class = \"btn btn-danger\">
-                  </form>"
-                  ;
-		 
-		    
-		  #$img = imagecreatefrompng('$image');
-		  #header('Content-type: image/jpg');
-		  #readfile($image);
-		  #echo '<img src="$img" title="Error" alt="Error" />';
-		}
-
-        ?>
+        <div class="col-lg-4 col-lg-offset-1">
+        <form class="bs-example" action="findShow.php" method="get">
+          <div class="form-group">
+            <label class="control-label" for="name">Name</label>
+            <input class="form-control" id="name" type="text" name="name" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="network">Network</label>
+            <input class="form-control" id="network" type="text" name="network" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="airday">Airday</label>
+            <input class="form-control" id="airday" type="text" name="airday" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="airtime">Airtime</label>
+            <input class="form-control" id="airtime" type="text" name="airtime" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="class">Classification</label>
+            <input class="form-control" id="class" type="text" name="class" autocomplete="off">
+          </div>
+          <input type="submit" value = "Search" class="btn btn-danger">
+        </form>
+        </div>
         
         <body onload="document.name.reset();">        
         </p>
